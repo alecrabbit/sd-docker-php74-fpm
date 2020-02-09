@@ -13,3 +13,5 @@ RUN apt-get update && apt-get install -y unzip libicu-dev libwebp-dev \
     && docker-php-ext-enable redis \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql \
     && docker-php-ext-install mysqli pdo_mysql
+
+COPY ./config/php/timezone.ini /usr/local/etc/php/conf.d/timezone.ini
