@@ -12,6 +12,9 @@ RUN apt-get update && apt-get install -y unzip libicu-dev libwebp-dev \
     && rm -rf /tmp/pear \
     && docker-php-ext-enable redis \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql \
-    && docker-php-ext-install mysqli pdo_mysql
+    && docker-php-ext-install mysqli pdo_mysql \
+    && docker-php-ext-configure opcache --enable-opcache \
+    && docker-php-ext-install opcache
 
 COPY ./config/php/timezone.ini /usr/local/etc/php/conf.d/timezone.ini
+COPY ./config/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
