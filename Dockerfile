@@ -3,9 +3,10 @@ FROM php:7.3-fpm
 ENV REDIS_VERSION 5.1.1
 
 RUN apt-get update && apt-get install -y unzip libicu-dev libwebp-dev \
-    libjpeg62-turbo-dev libpng-dev libxpm-dev libfreetype6-dev \
+    libjpeg62-turbo-dev libpng-dev libxpm-dev libfreetype6-dev libxslt-dev \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
+    && docker-php-ext-install xsl \
     && docker-php-ext-configure gd \
     && docker-php-ext-install gd \
     && pecl install -o -f redis-${REDIS_VERSION} \
