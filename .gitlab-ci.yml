@@ -1,0 +1,35 @@
+image: docker:stable
+
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+services:
+  - docker:dind
+
+
+before_script:
+  - docker info
+  - apk add --no-cache curl jq python py-pip
+  - which ssh-agent || apk add --no-cache openssh-client
+  - pip install awscli
+
+
+stages:
+  - build_and_push
+
+
+build-prod:
+  stage: build_and_push
+  variables:
+    REPOSITORY_URL: 781529398433.dkr.ecr.eu-central-1.amazonaws.com/php-fpm
+    AWS_ACCESS_KEY_ID: $ECR_ACCESS_ID
+    AWS_SECRET_ACCESS_KEY: $ECR_ACCESS_KEY
+  script:
+    - $(aws ecr get-login --no-include-email --region eu-central-1 )
+    - docker build -t $REPOSITORY_URL:latest .
+    - docker push $REPOSITORY_URL:latest
+  only:
+    - master
+  when: manual
