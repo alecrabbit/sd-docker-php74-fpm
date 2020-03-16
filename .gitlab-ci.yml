@@ -20,7 +20,7 @@ stages:
   - build_and_push
 
 
-build-prod:
+build-and-push:
   stage: build_and_push
   variables:
     REPOSITORY_URL: 781529398433.dkr.ecr.eu-central-1.amazonaws.com/php-fpm
