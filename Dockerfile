@@ -1,6 +1,6 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
-ENV REDIS_VERSION 5.1.1
+ENV REDIS_VERSION 5.2.0
 
 RUN apt-get update && apt-get install -y unzip libicu-dev libwebp-dev \
     libjpeg62-turbo-dev libpng-dev libxpm-dev libfreetype6-dev libxslt-dev \
